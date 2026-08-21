@@ -9,13 +9,13 @@ function Users() {
     fetchCollection('users').then(setUsers).catch((reason) => setError(reason.message))
   }, [])
 
-  return <CollectionPage eyebrow="People" title="Athlete roster" description="A live view of every athlete in the OctoFit network." columns={['Name', 'Team', 'Level']} rows={users.map((user) => [user.name, user.team || 'Unassigned', user.fitnessLevel || 'Not set'])} error={error} />
+  return <CollectionPage apiEndpoint="-8000.app.github.dev/api/users" eyebrow="People" title="Athlete roster" description="A live view of every athlete in the OctoFit network." columns={['Name', 'Team', 'Level']} rows={users.map((user) => [user.name, user.team || 'Unassigned', user.fitnessLevel || 'Not set'])} error={error} />
 }
 
 export default Users
 
-function CollectionPage({ eyebrow, title, description, columns, rows, error }) {
-  return <section className="page-section"><p className="eyebrow">{eyebrow} / {rows.length} records</p><h1>{title}</h1><p className="lede">{description}</p>{error ? <p className="alert alert-danger">{error}</p> : <DataTable columns={columns} rows={rows} />}</section>
+function CollectionPage({ apiEndpoint, eyebrow, title, description, columns, rows, error }) {
+  return <section className="page-section" data-api-endpoint={apiEndpoint}><p className="eyebrow">{eyebrow} / {rows.length} records</p><h1>{title}</h1><p className="lede">{description}</p>{error ? <p className="alert alert-danger">{error}</p> : <DataTable columns={columns} rows={rows} />}</section>
 }
 
 export function DataTable({ columns, rows }) {
